@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#define MAX 1000
-struct pilha
-{
-    int t;      /* t é o topo da pilha -- proximo espaco vazio do vetor */
-    int v[MAX]; /* v é o vetor que armazena os elementos da pilha */
-};
 
-/* Define um novo tipo de dado chamado Pilha que é um ponteiro para "struct pilha". */
+struct pilha {
+    int t;
+    int next;
+};
 typedef struct pilha * Pilha;
 
-/* Aloca espaço para armazenar uma nova Pilha */
 Pilha novaPilha () {
     Pilha p = malloc(sizeof(*p));
     if (p == NULL)
@@ -22,24 +18,24 @@ Pilha novaPilha () {
     p->t = 0; /* devemos inicializar o topo com 0 */
     return p;
 }
-/* Libera memória de uma dada pilha p */
+/* Libera memÃ³ria de uma dada pilha p */
 void destroiPilha (Pilha p)
 {
     free(p);
 }
-/* Operação de inserir novo elemento na pilha */
+/* OperaÃ§Ã£o de inserir novo elemento na pilha */
 void push (Pilha p, int valor) {
     p->v[(p->t)++] = valor;
 }
-/* Operação de remover um elemento da pilha */
+/* OperaÃ§Ã£o de remover um elemento da pilha */
 int pop (Pilha p) {
     return p->v[--(p->t)];
 }
-/* Operação para pegar o elemento do topo da pilha */
+/* OperaÃ§Ã£o para pegar o elemento do topo da pilha */
 int topo (Pilha p) {
     return p->v[p->t - 1];
 }
-/* Transforma a notação infixa para a notação posfixa */
+/* Transforma a notaÃ§Ã£o infixa para a notaÃ§Ã£o posfixa */
 int infixoParaPosfixo (char * entrada, char * saida, int n)
 {
     Pilha p = novaPilha();
@@ -124,7 +120,6 @@ int bemEncaixado (char* s) {
     return resultado;
 }
 
-
 int calcula ( char * s ) {
     int i = 0;
     int d = 0,k;
@@ -164,9 +159,6 @@ int calcula ( char * s ) {
     return resultado;
 }
 
-
-
-/* Exemplo de utilização */
 int main () {
     char infixo[255] ;
     char posfixo[255];
@@ -175,7 +167,7 @@ int main () {
     printf ("> ");
     while(fgets(infixo, 255, stdin) != NULL) {
         if(strcmp(infixo, "quit\n") == 0)  {
-            printf ("morri !\n");
+            printf ("Tchau!\n");
             return 0;
         }
         if(bemEncaixado(infixo)) {
