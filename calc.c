@@ -2,40 +2,43 @@
 #include <stdlib.h>
 #include <strings.h>
 
-struct pilha {
-    int t;
-    int next;
-};
-typedef struct pilha * Pilha;
+struct Pilha {
 
-Pilha novaPilha () {
-    Pilha p = malloc(sizeof(*p));
+	int t;
+	int *v;
+};
+
+void novaPilha (struct Pilha *p) {
+    p = malloc(sizeof(*p));
     if (p == NULL)
         {
             printf("Algum erro aconteceu !\n");
             exit(-1);
         }
-    p->t = 0; /* devemos inicializar o topo com 0 */
+    p->t = 0;
     return p;
 }
-/* Libera memória de uma dada pilha p */
-void destroiPilha (Pilha p)
+
+void destroiPilha (struct Pilha *p)
 {
     free(p);
 }
-/* Operação de inserir novo elemento na pilha */
-void push (Pilha p, int valor) {
-    p->v[(p->t)++] = valor;
+
+void push (struct Pilha *p, int valor){
+	p->t++;
+	p->v[p->t] = valor;
 }
-/* Operação de remover um elemento da pilha */
-int pop (Pilha p) {
-    return p->v[--(p->t)];
+
+int pop(struct Pilha *p){
+   int aux = p->v[p->t];
+	p->t--;
+	return aux;
 }
-/* Operação para pegar o elemento do topo da pilha */
-int topo (Pilha p) {
-    return p->v[p->t - 1];
+
+int topo(struct Pilha *p){
+   return p->v[p->t];
 }
-/* Transforma a notação infixa para a notação posfixa */
+
 int infixoParaPosfixo (char * entrada, char * saida, int n)
 {
     Pilha p = novaPilha();
